@@ -1,0 +1,25 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "description": "from this place is starting backend and frontend sides",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd backend && nodemon -r dotenv/config server.js",
+    "client": "npm run start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jetsoni/Ostoslista-app.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jetsoni/Ostoslista-app/issues"
+  },
+  "homepage": "https://github.com/jetsoni/Ostoslista-app#readme",
+  "devDependencies": {
+    "concurrently": "^8.0.1",
+    "nodemon": "^2.0.22"
+  }
+}
