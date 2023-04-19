@@ -2,7 +2,7 @@
   "name": "main",
   "version": "1.0.0",
   "description": "from this place is starting backend and frontend sides",
-  "main": "index.js",
+  "main": "",
   "scripts": {
     "server": "cd backend && nodemon -r dotenv/config server.js",
     "client": "npm run start --prefix frontend",
