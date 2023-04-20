@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
+import AuthForm from './components/AuthForm/AuthForm';
 
 function App() {
   return (
-    <div className="App">
-      Hello world
+    <div className='App'>
+      <AuthForm />
     </div>
   );
 }
