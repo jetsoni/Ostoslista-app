@@ -9,7 +9,8 @@ app.use(cors());
 app.use(express.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/v1/auth", require("./routes/auth.route"));
-
+app.use("/api/v1/products", require("./routes/products.route"));
+//
 const port = config.port || 5000;
 
 (async () => {
