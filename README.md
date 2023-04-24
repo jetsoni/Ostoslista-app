@@ -3,4 +3,8 @@
 3. Go inside `backend` folder and complete next command: `npm ci`
 4. Go inside `frontend` folder and complete next command: `npm ci`  
 5. Make `cd ..` then `npm run dev`. 
-6. This application will be start in development mode: `backend side` and `frontend side`
+6. Complete next command: `npm ci`
+7. This application will be start in development mode: `backend side` and `frontend side`
+
+
+uuuuu
