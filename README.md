@@ -5,6 +5,3 @@
 5. Make `cd ..` then `npm run dev`. 
 6. Complete next command: `npm ci`
 7. This application will be start in development mode: `backend side` and `frontend side`
-
-
-uuuuu
