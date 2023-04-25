@@ -3,6 +3,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthForm from './components/AuthForm/AuthForm';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import TestComponent from './components/TestComponent/TestComponent';
+import Items from './components/Items/Items';
+import Recipes from './components/Recipes/Recipes';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 
 export const useRoutes = (isAuthenticated: boolean) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -15,6 +18,9 @@ export const useRoutes = (isAuthenticated: boolean) => {
       return (
         <Routes>
           <Route path='/' element={<TestComponent />} />
+          <Route path='/items' element={<Items />} />
+          <Route path='/recipes' element={<Recipes />} />
+          <Route path='/shopping-cart' element={<ShoppingCart />} />
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>
       );
