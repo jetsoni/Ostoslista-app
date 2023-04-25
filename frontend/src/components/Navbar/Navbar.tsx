@@ -21,9 +21,15 @@ const Navbar = () => {
         {!auth.isAuthenticated && <Link to='/registration'>Register</Link>}
         {auth.isAuthenticated && (
           <>
-            <Link to='/items'>Items</Link>
-            <Link to='/recipes'>Recipes</Link>
-            <Link to='/shopping-cart'>Shopping Cart</Link>
+            <Link to='/items' style={{ marginRight: '50px' }}>
+              Items
+            </Link>
+            <Link to='/recipes' style={{ marginRight: '50px' }}>
+              Recipes
+            </Link>
+            <Link to='/shopping-cart' style={{ marginRight: '50px' }}>
+              Shopping Cart
+            </Link>
             <div style={{ cursor: 'pointer' }} onClick={() => auth.logout()}>
               Logout
             </div>
