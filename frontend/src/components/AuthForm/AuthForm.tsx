@@ -1,4 +1,6 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 type UserType = {
   email: string;
@@ -6,12 +8,14 @@ type UserType = {
 };
 
 const AuthForm: FC = () => {
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
   const [user, setUser] = useState<UserType>({
     email: '',
     password: '',
   });
 
-  const changeUser = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeUser = (event: ChangeEvent<HTMLInputElement>) => {
     setUser((state) => {
       return {
         ...state,
@@ -22,15 +26,13 @@ const AuthForm: FC = () => {
 
   // Next step, refactoring: `register`, `login` and `logout` functions will be called via custom hook.
   // This hook will be named `AuthHook`
-  const registerUser = async (
+  const loginUser = async (
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    console.log('registerUser', user);
     try {
-      // need to fix
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER_ADDRESS}/api/v1/auth/register`,
+        `${process.env.REACT_APP_SERVER_ADDRESS}/api/v1/auth/login`,
         {
           method: 'POST',
           headers: {
@@ -43,51 +45,51 @@ const AuthForm: FC = () => {
           }),
         }
       );
-      if (response.status === 201) {
-        // Next step: need to add at localStorage JWT token
-        // Start.
-        // ........................
-        // End.
+      if (response.status === 200) {
         const json = await response.json();
+        auth.login(json.token, json.userId, user.email);
         setUser({
           email: '',
           password: '',
         });
+        navigate('/');
       }
     } catch (err) {}
   };
 
   return (
-    <form onSubmit={registerUser}>
-      <div className='form-group'>
-        <label htmlFor='email'>Email address</label>
-        <input
-          type='email'
-          className='form-control'
-          id='email'
-          aria-describedby='emailHelp'
-          placeholder='Enter email'
-          value={user.email}
-          onChange={changeUser}
-          name='email'
-        />
-      </div>
-      <div className='form-group'>
-        <label htmlFor='password'>Password</label>
-        <input
-          type='password'
-          className='form-control'
-          id='password'
-          placeholder='Password'
-          value={user.password}
-          onChange={changeUser}
-          name='password'
-        />
-      </div>
-      <button type='submit' className='btn btn-primary'>
-        Submit
-      </button>
-    </form>
+    <div className='container d-flex justify-content-center align-items-center'>
+      <form onSubmit={loginUser}>
+        <div className='form-group' style={{ marginBottom: '25px' }}>
+          <label htmlFor='email'>Email address</label>
+          <input
+            type='email'
+            className='form-control'
+            id='email'
+            aria-describedby='emailHelp'
+            placeholder='Enter email'
+            value={user.email}
+            onChange={onChangeUser}
+            name='email'
+          />
+        </div>
+        <div className='form-group' style={{ marginBottom: '25px' }}>
+          <label htmlFor='password'>Password</label>
+          <input
+            type='password'
+            className='form-control'
+            id='password'
+            placeholder='Password'
+            value={user.password}
+            onChange={onChangeUser}
+            name='password'
+          />
+        </div>
+        <button type='submit' className='btn btn-primary'>
+          Login
+        </button>
+      </form>
+    </div>
   );
 };
 
