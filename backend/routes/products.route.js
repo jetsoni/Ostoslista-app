@@ -1,7 +1,4 @@
 const { Router } = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const config = require("../config/default");
 const { check, validationResult } = require("express-validator");
 const Product = require("../models/products");
 const router = Router();
@@ -28,7 +25,7 @@ router.post(
       console.log(req.body);
       const { name, amount } = req.body;
 
-      const product = new Product({ name, amount });
+      const product = new Product({ name, amount, userId: req.user.userId });
       await product.save();
 
       return res.status(201).json({ message: "product was created" });
@@ -45,6 +42,19 @@ router.get("/product/:id", async (req, res) => {
     const product = await Product.findOne({ _id: new ObjectId(req.params.id) });
     console.log(req.params.id);
     return res.status(200).json({ productInfo: product });
+  } catch (err) {
+    console.error(`Something goes wrong, ${err.message}`);
+    const { message } = err;
+    return res.status(500).json({ message });
+  }
+});
+
+router.get("/", auth, async (req, res) => {
+  try {
+    const products = await Product.find({
+      userId: new ObjectId(req.user.userId),
+    });
+    return res.status(200).json({ items: products });
   } catch (err) {
     console.error(`Something goes wrong, ${err.message}`);
     const { message } = err;
