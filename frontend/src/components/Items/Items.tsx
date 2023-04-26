@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { filterItemsByRegExp } from '../../helpers/filterItemsByRegExp';
+import { filterItemsByRegExp } from '../../helpers/filterItemsByRegExp/filterItemsByRegExp';
 
 type ItemType = {
   itemName: string;
