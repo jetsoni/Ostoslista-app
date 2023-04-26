@@ -7,6 +7,9 @@ import React, {
   useState,
 } from 'react';
 import { filterItemsByRegExp } from '../../helpers/filterItemsByRegExp/filterItemsByRegExp';
+import SearchItemForm from './SearchItemForm/SearchItemForm';
+import ShowItems from './ShowItems/ShowItems';
+import AddItemForm from './AddItemForm/AddItemForm';
 
 type ItemType = {
   itemName: string;
@@ -93,7 +96,7 @@ const Items: FC = () => {
     } catch (err) {}
   };
 
-  const onChangeItem = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeItem = (event: ChangeEvent<HTMLInputElement>): void => {
     setItem((state) => {
       return {
         ...state,
@@ -119,58 +122,18 @@ const Items: FC = () => {
 
   return (
     <div className='content'>
-      <h3>Your Items</h3>
-      <form onSubmit={addItem}>
-        <div className='form-group' style={{ marginBottom: '25px' }}>
-          <input
-            type='text'
-            className='form-control'
-            id='itemName'
-            aria-describedby='itemHelp'
-            placeholder='Write the name of item'
-            value={item.itemName}
-            onChange={onChangeItem}
-            name='itemName'
-          />
-        </div>
-        <button type='submit' className='btn btn-primary'>
-          Add item
-        </button>
-      </form>
-
-      <form>
-        <input
-          style={{ marginTop: '25px', marginBottom: '25px' }}
-          type='text'
-          value={search}
-          name='search'
-          placeholder='Search item(s)'
-          onChange={searchItems}
-        />
-      </form>
-
-      <ul>
-        {items &&
-          items.map((value: ItemType) => {
-            if (value.visible)
-              return (
-                <li>
-                  {value.itemName}{' '}
-                  <input
-                    type='button'
-                    onClick={onAddToShoppingCart}
-                    value='Add to SC'
-                  />
-                  <input type='button' onClick={onEditItem} value='Edit' />
-                  <input
-                    type='button'
-                    onClick={() => onDeleteItem(value.itemName)}
-                    value='Delete'
-                  />
-                </li>
-              );
-          })}
-      </ul>
+      <AddItemForm
+        addItem={addItem}
+        onChangeItem={onChangeItem}
+        itemName={item.itemName}
+      />
+      <SearchItemForm searchItems={searchItems} search={search} />
+      <ShowItems
+        items={items}
+        onAddToShoppingCart={onAddToShoppingCart}
+        onDeleteItem={onDeleteItem}
+        onEditItem={onEditItem}
+      />
     </div>
   );
 };
