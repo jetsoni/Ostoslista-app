@@ -113,13 +113,6 @@ const Items: FC = () => {
 
   const searchItems = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
-    // const arr = items.map((value) => {
-    //   const pattern = new RegExp(event.target.value, 'g');
-    //   value.itemName.match(pattern)
-    //     ? (value.visible = true)
-    //     : (value.visible = false);
-    //   return value;
-    // });
     const arr = filterItemsByRegExp(items, event.target.value);
     setItems(arr);
   };
